@@ -31,4 +31,8 @@ public class InputValidationServiceTest {
         assertEquals(false, InputValidationService.isLoanRequestValid(1099));
     }
 
+    @Test
+    public void whenRequestIsOutOfRangeButIncrementOf100_ReturnFalse() {
+        assertEquals(false, InputValidationService.isLoanRequestValid(15100));
+    }
 }
