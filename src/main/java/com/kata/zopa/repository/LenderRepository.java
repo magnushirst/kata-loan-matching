@@ -5,7 +5,11 @@ import com.kata.zopa.dto.Lender;
 import java.util.ArrayList;
 
 public class LenderRepository {
+    public LenderRepository(String csvPath) {
+
+    }
+
     public ArrayList<Lender> getLenders() {
-        return null;
+        return new ArrayList<Lender>();
     }
 }

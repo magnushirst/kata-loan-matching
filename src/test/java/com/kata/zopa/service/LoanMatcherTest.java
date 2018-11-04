@@ -46,7 +46,7 @@ public class LoanMatcherTest {
     public void withOnlyOneLender_ThenRepaymentsAreCalculated() throws CannotFulFillLoanRequest {
         LenderRepository mockLenderRepository = mock(LenderRepository.class);
         BigDecimal expectedMonthlyRepayment = new BigDecimal("30.88");
-        BigDecimal expectedTotalRepayment =  new BigDecimal("1111.58");
+        BigDecimal expectedTotalRepayment =  new BigDecimal("1111.68");
 
 
         Lender lender = new Lender("Bob", 0.07, 1000.0);
@@ -58,7 +58,7 @@ public class LoanMatcherTest {
         LoanDetails loanDetails = matchingService.match(1000);
         LoanRepayments loanRepayments = loanDetails.calculateRepayments();
 
-        assertEquals(expectedMonthlyRepayment, loanRepayments.getMonthlyRepayment().setScale(2, HALF_EVEN));
-        assertEquals(expectedTotalRepayment, loanRepayments.getTotalRepayment().setScale(2, HALF_EVEN));
+        assertEquals(expectedMonthlyRepayment, loanRepayments.getMonthlyRepayment());
+        assertEquals(expectedTotalRepayment, loanRepayments.getTotalRepayment());
     }
 }

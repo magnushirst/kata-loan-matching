@@ -3,6 +3,8 @@ package com.kata.zopa.dto;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static java.math.RoundingMode.HALF_EVEN;
+
 public class LoanDetails {
 
     int loanLengthMonths = 36;
@@ -32,8 +34,8 @@ public class LoanDetails {
         BigDecimal e2 = monthlyRate.multiply(e1);
         BigDecimal e3 = e1.subtract(new BigDecimal(1));
 
-        BigDecimal amortizationCalc = new BigDecimal(loanAmount).multiply(e2.divide(e3, RoundingMode.HALF_EVEN));
-
-        return new LoanRepayments(amortizationCalc.multiply(new BigDecimal(loanLengthMonths)), amortizationCalc);
+        BigDecimal amortizationCalc = new BigDecimal(loanAmount).multiply(e2.divide(e3, HALF_EVEN)).setScale(2, HALF_EVEN);
+        BigDecimal totalRepayment = amortizationCalc.multiply(new BigDecimal(loanLengthMonths));
+        return new LoanRepayments(totalRepayment, amortizationCalc);
     }
 }
