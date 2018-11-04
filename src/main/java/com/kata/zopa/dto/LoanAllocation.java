@@ -29,6 +29,7 @@ public class LoanAllocation {
     public double getRate() {
         return rate;
     }
+
     public double getLoanedAmount() {
         return loanedAmount;
     }

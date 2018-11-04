@@ -3,7 +3,7 @@ package com.kata.zopa.matcher;
 import com.kata.zopa.dto.Lender;
 import com.kata.zopa.dto.LoanAllocation;
 import com.kata.zopa.dto.LoanDetails;
-import com.kata.zopa.exception.CannotFullFillLoanRequest;
+import com.kata.zopa.exception.CannotFulFillLoanRequest;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,7 +16,7 @@ import java.util.Comparator;
 
 public class BestRateMatcher implements Matcher {
     @Override
-    public LoanDetails match(int loanRequest, ArrayList<Lender> lenders) throws CannotFullFillLoanRequest {
+    public LoanDetails match(int loanRequest, ArrayList<Lender> lenders) throws CannotFulFillLoanRequest {
         lenders.sort(Comparator.comparing(Lender::getRate));
 
         LoanAllocation loanAllocation = new LoanAllocation();
@@ -31,7 +31,7 @@ public class BestRateMatcher implements Matcher {
         if (hasLoanBeenFulfilled(loanRequest, loanAllocation)) {
             return new LoanDetails(loanAllocation.getRate(), loanAllocation.getLoanedAmount());
         } else {
-            throw new CannotFullFillLoanRequest();
+            throw new CannotFulFillLoanRequest();
         }
     }
 
