@@ -14,7 +14,7 @@ public class LoanDetailsTest {
         BigDecimal expectedTotalRepayment = new BigDecimal("1111.68");
 
 
-        LoanDetails loanDetails = new LoanDetails(0.07, 1000);
+        LoanDetails loanDetails = new LoanDetails("0.07", "1000");
 
         LoanRepayments loanRepayments = loanDetails.calculateRepayments();
 

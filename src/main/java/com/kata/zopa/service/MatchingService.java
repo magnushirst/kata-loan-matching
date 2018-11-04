@@ -6,6 +6,7 @@ import com.kata.zopa.exception.CannotFulFillLoanRequest;
 import com.kata.zopa.matcher.Matcher;
 import com.kata.zopa.repository.LenderRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MatchingService {
@@ -16,7 +17,7 @@ public class MatchingService {
         this.matcher = matcher;
     }
 
-    public LoanDetails match(int loanRequest) throws CannotFulFillLoanRequest {
+    public LoanDetails match(int loanRequest) throws CannotFulFillLoanRequest, IOException {
         ArrayList<Lender> lenders = lenderRepository.getLenders();
         LoanDetails loanDetails = matcher.match(loanRequest, lenders);
         return loanDetails;

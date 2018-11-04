@@ -9,7 +9,7 @@ import com.kata.zopa.repository.LenderRepository;
 import com.kata.zopa.service.InputValidationService;
 import com.kata.zopa.service.MatchingService;
 
-import java.math.RoundingMode;
+import java.io.IOException;
 
 import static java.lang.System.exit;
 import static java.math.RoundingMode.HALF_EVEN;
@@ -34,17 +34,20 @@ public class App {
         Matcher matcher = new BestRateMatcher();
         MatchingService matchingService = new MatchingService(lenderRepository, matcher);
 
-        try{
+        try {
             LoanDetails loanDetails = matchingService.match(loanRequest);
             LoanRepayments loanRepayments = loanDetails.calculateRepayments();
-            System.out.println(String.format("Requested amount: £%d", loanRequest));
-            System.out.println(String.format("Rate: %d%", loanDetails.getYearlyRate()));
-            System.out.println(String.format("Monthly repayment: £%d", loanRepayments.getMonthlyRepayment().setScale(2, HALF_EVEN)));
-            System.out.println(String.format("Total repayment: £%d", loanRepayments.getTotalRepayment().setScale(2, HALF_EVEN)));
+            System.out.println(String.format("Requested amount: £%s", loanRequest));
+            System.out.println(String.format("Rate: %s%s", loanDetails.getYearlyRate(), "%"));
+            System.out.println(String.format("Monthly repayment: £%s", loanRepayments.getMonthlyRepayment().setScale(2, HALF_EVEN)));
+            System.out.println(String.format("Total repayment: £%s", loanRepayments.getTotalRepayment().setScale(2, HALF_EVEN)));
 
 
-        }catch (CannotFulFillLoanRequest cannotFulFillLoanRequest){
+        } catch (CannotFulFillLoanRequest cannotFulFillLoanRequest) {
             exitWithUnableToMatch();
+        } catch (IOException ioException) {
+            System.out.println("Error: Could not read CSV");
+            exit(1);
         }
     }
 

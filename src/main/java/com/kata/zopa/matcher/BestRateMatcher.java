@@ -5,6 +5,8 @@ import com.kata.zopa.dto.LoanAllocation;
 import com.kata.zopa.dto.LoanDetails;
 import com.kata.zopa.exception.CannotFulFillLoanRequest;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -22,8 +24,10 @@ public class BestRateMatcher implements Matcher {
         LoanAllocation loanAllocation = new LoanAllocation();
         for (Lender lender : lenders) {
             if (!hasLoanBeenFulfilled(loanRequest, loanAllocation)) {
-                double outstandingLoanContribution = loanAllocation.loanedAmount() - loanRequest;
-                double lendersContribution = lender.getAvailable() > outstandingLoanContribution ? lender.getAvailable() : outstandingLoanContribution;
+                BigDecimal outstandingLoanContribution = loanAllocation.loanedAmount().subtract(new BigDecimal(loanRequest));
+                BigDecimal lendersContribution = lender.getAvailable().compareTo(outstandingLoanContribution) == 1
+                        ? lender.getAvailable()
+                        : outstandingLoanContribution;
                 loanAllocation.addLender(lender.getRate(), lendersContribution);
             }
         }
@@ -36,6 +40,8 @@ public class BestRateMatcher implements Matcher {
     }
 
     private boolean hasLoanBeenFulfilled(int loanRequest, LoanAllocation loanAllocation) {
-        return loanAllocation.loanedAmount() == loanRequest;
+        return loanAllocation.loanedAmount()
+                .setScale(0, RoundingMode.FLOOR)
+                .compareTo(new BigDecimal(loanRequest)) == 0;
     }
 }

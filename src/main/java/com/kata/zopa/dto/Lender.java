@@ -1,21 +1,27 @@
 package com.kata.zopa.dto;
 
-public class Lender {
-    String name;
-    double rate;
-    double available;
+import java.math.BigDecimal;
 
-    public Lender(String name, double rate, double available) {
+public class Lender {
+    private String name;
+    private BigDecimal rate;
+    private BigDecimal available;
+
+    public Lender(String name, String rate, String available) {
+        this(name, new BigDecimal(rate), new BigDecimal(available));
+    }
+
+    public Lender(String name, BigDecimal rate, BigDecimal available) {
         this.name = name;
         this.rate = rate;
         this.available = available;
     }
 
-    public double getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 
-    public double getAvailable() {
+    public BigDecimal getAvailable() {
         return available;
     }
 }

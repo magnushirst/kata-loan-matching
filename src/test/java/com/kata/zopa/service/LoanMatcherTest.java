@@ -9,6 +9,7 @@ import com.kata.zopa.repository.LenderRepository;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,10 +29,10 @@ public class LoanMatcherTest {
     }
 
     @Test
-    public void withOnlyOneLender_ThenMatch() throws CannotFulFillLoanRequest {
+    public void withOnlyOneLender_ThenMatch() throws CannotFulFillLoanRequest, IOException {
         LenderRepository mockLenderRepository = mock(LenderRepository.class);
 
-        Lender lender = new Lender("Bob", 0.07, 1000.0);
+        Lender lender = new Lender("Bob", "0.07", "1000.0");
         ArrayList<Lender> lenders = new ArrayList<>(Arrays.asList(lender));
         when(mockLenderRepository.getLenders()).thenReturn(lenders);
 
@@ -39,17 +40,17 @@ public class LoanMatcherTest {
 
         LoanDetails loanDetails = matchingService.match(1000);
 
-        assertEquals(0.07, loanDetails.getYearlyRate(), 0);
+        assertEquals(new BigDecimal("7.0"), loanDetails.getYearlyRate());
     }
 
     @Test
-    public void withOnlyOneLender_ThenRepaymentsAreCalculated() throws CannotFulFillLoanRequest {
+    public void withOnlyOneLender_ThenRepaymentsAreCalculated() throws CannotFulFillLoanRequest, IOException {
         LenderRepository mockLenderRepository = mock(LenderRepository.class);
         BigDecimal expectedMonthlyRepayment = new BigDecimal("30.88");
         BigDecimal expectedTotalRepayment =  new BigDecimal("1111.68");
 
 
-        Lender lender = new Lender("Bob", 0.07, 1000.0);
+        Lender lender = new Lender("Bob", "0.07", "1000.0");
         ArrayList<Lender> lenders = new ArrayList<>(Arrays.asList(lender));
         when(mockLenderRepository.getLenders()).thenReturn(lenders);
 

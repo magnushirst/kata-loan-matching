@@ -1,36 +1,44 @@
 package com.kata.zopa.dto;
 
+import java.math.BigDecimal;
+
+import static java.math.RoundingMode.HALF_EVEN;
+
 public class LoanAllocation {
-    public double loanedAmount;
-    public double rate;
+    private BigDecimal loanedAmount;
+    private BigDecimal rate;
 
     public LoanAllocation() {
-        this.loanedAmount = 0;
-        this.rate = 0;
+        this.loanedAmount = new BigDecimal(0);
+        this.rate = new BigDecimal(0);
     }
 
-    public void addLender(double lenderRate, double lendersContribution) {
-        double loan1interest = this.rate * loanedAmount;
-        double loan2interest = lenderRate * lendersContribution;
+    public void addLender(String lenderRate, String lendersContribution) {
+        addLender(new BigDecimal(lenderRate), new BigDecimal(lendersContribution));
+    }
 
-        double combinedLoanInterest = loan1interest + loan2interest;
-        double combinedLoanAmount = loanedAmount + lendersContribution;
+    public void addLender(BigDecimal lenderRate, BigDecimal lendersContribution) {
+        BigDecimal loan1interest = this.rate.multiply(loanedAmount);
+        BigDecimal loan2interest = lenderRate.multiply(lendersContribution);
 
-        double averageLoanInterest = combinedLoanInterest/combinedLoanAmount;
+        BigDecimal combinedLoanInterest = loan1interest.add(loan2interest);
+        BigDecimal combinedLoanAmount = loanedAmount.add(lendersContribution);
+
+        BigDecimal averageLoanInterest = combinedLoanInterest.divide(combinedLoanAmount, HALF_EVEN);
 
         this.loanedAmount = combinedLoanAmount;
         this.rate = averageLoanInterest;
     }
 
-    public double loanedAmount() {
+    public BigDecimal loanedAmount() {
         return loanedAmount;
     }
 
-    public double getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 
-    public double getLoanedAmount() {
+    public BigDecimal getLoanedAmount() {
         return loanedAmount;
     }
 }
