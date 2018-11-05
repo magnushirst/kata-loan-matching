@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.katak.zopa'
+group 'com.kata.loan'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8

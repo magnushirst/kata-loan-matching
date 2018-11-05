@@ -12,3 +12,4 @@ To change the matching modes between the different implementations, change the M
 ## Improvements
 1. Add better matching implementations
 1. Add test coverage for App class which would require something like Guice for IoC
+1. Group the lenders to risk 'buckets' to make matching easier and better for lenders
