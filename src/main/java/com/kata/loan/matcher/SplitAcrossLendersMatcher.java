@@ -12,8 +12,9 @@ import java.util.Comparator;
 
 
 /**
- * Naive implementation of the matcher which provides the lowest interest for the borrower but with the
- * most risk for the lenders. This could match 1 borrower to 1 lender.
+ * A matching method which will try and match n number of lenders to a borrower to increase diversity and
+ * mitigate risk. This could be improved by setting a maximum % of total funds that can be taken from 1
+ * borrower.
  */
 
 public class SplitAcrossLendersMatcher implements Matcher {
