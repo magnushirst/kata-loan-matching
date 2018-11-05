@@ -27,17 +27,20 @@ public class SplitAcrossLendersMatcher implements Matcher {
     public LoanDetails match(int loanRequest, ArrayList<Lender> lenders) throws CannotFulFillLoanRequest {
         lenders.sort(Comparator.comparing(Lender::getRate));
 
-        BigDecimal splitLendingAmount = new BigDecimal(loanRequest).divide(new BigDecimal(lendersToSplitBy), 0, RoundingMode.HALF_UP);
+        BigDecimal splitLendingAmount = new BigDecimal(loanRequest).divide(new BigDecimal(lendersToSplitBy), 0, RoundingMode.CEILING);
 
         validateEnoughLendersToFulfillRequest(lenders);
 
         LoanAllocation loanAllocation = new LoanAllocation();
         for (int i = 0; i < lendersToSplitBy; i++) {
             Lender lender = lenders.get(i);
-            if (lender.getAvailable().compareTo(splitLendingAmount) >= 0 && !hasLoanBeenFulfilled(new BigDecimal(loanRequest), loanAllocation)) {
+            if (lender.getAvailable().compareTo(splitLendingAmount) >= 0) {
                 loanAllocation.addLender(lender.getRate(), splitLendingAmount);
             }
         }
+
+        if (!hasLoanBeenFulfilled(new BigDecimal(loanRequest), loanAllocation)) throw new CannotFulFillLoanRequest();
+
         return new LoanDetails(loanAllocation.getRate(), loanAllocation.getLoanedAmount());
     }
 
@@ -47,7 +50,7 @@ public class SplitAcrossLendersMatcher implements Matcher {
 
     private boolean hasLoanBeenFulfilled(BigDecimal loanRequest, LoanAllocation loanAllocation) {
         return loanAllocation.loanedAmount()
-                .setScale(0, RoundingMode.FLOOR)
-                .compareTo(loanRequest) == 0;
+                .setScale(0, RoundingMode.CEILING)
+                .compareTo(loanRequest) >= 0;
     }
 }
