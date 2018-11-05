@@ -1,4 +1,4 @@
-package com.kata.zopa.dto;
+package com.kata.loan.dto;
 
 import org.junit.Assert;
 import org.junit.Test;

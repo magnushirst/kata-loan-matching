@@ -1,4 +1,4 @@
-package com.kata.zopa.service;
+package com.kata.loan.service;
 
 import org.junit.Test;
 

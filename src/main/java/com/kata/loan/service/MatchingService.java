@@ -1,10 +1,10 @@
-package com.kata.zopa.service;
+package com.kata.loan.service;
 
-import com.kata.zopa.dto.Lender;
-import com.kata.zopa.dto.LoanDetails;
-import com.kata.zopa.exception.CannotFulFillLoanRequest;
-import com.kata.zopa.matcher.Matcher;
-import com.kata.zopa.repository.LenderRepository;
+import com.kata.loan.dto.Lender;
+import com.kata.loan.dto.LoanDetails;
+import com.kata.loan.exception.CannotFulFillLoanRequest;
+import com.kata.loan.matcher.Matcher;
+import com.kata.loan.repository.LenderRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;

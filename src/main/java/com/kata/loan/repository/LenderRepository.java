@@ -1,6 +1,6 @@
-package com.kata.zopa.repository;
+package com.kata.loan.repository;
 
-import com.kata.zopa.dto.Lender;
+import com.kata.loan.dto.Lender;
 
 import java.io.*;
 import java.util.ArrayList;

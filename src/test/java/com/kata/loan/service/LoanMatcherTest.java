@@ -1,11 +1,11 @@
-package com.kata.zopa.service;
+package com.kata.loan.service;
 
-import com.kata.zopa.dto.Lender;
-import com.kata.zopa.dto.LoanDetails;
-import com.kata.zopa.dto.LoanRepayments;
-import com.kata.zopa.exception.CannotFulFillLoanRequest;
-import com.kata.zopa.matcher.BestRateMatcher;
-import com.kata.zopa.repository.LenderRepository;
+import com.kata.loan.dto.Lender;
+import com.kata.loan.dto.LoanDetails;
+import com.kata.loan.dto.LoanRepayments;
+import com.kata.loan.exception.CannotFulFillLoanRequest;
+import com.kata.loan.matcher.BestRateMatcher;
+import com.kata.loan.repository.LenderRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static java.math.RoundingMode.HALF_EVEN;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

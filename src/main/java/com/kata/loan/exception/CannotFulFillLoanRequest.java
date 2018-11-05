@@ -1,4 +1,4 @@
-package com.kata.zopa.exception;
+package com.kata.loan.exception;
 
 public class CannotFulFillLoanRequest extends Exception {
 }

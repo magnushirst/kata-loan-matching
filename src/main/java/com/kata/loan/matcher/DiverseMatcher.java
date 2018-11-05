@@ -1,9 +1,9 @@
-package com.kata.zopa.matcher;
+package com.kata.loan.matcher;
 
-import com.kata.zopa.dto.Lender;
-import com.kata.zopa.dto.LoanAllocation;
-import com.kata.zopa.dto.LoanDetails;
-import com.kata.zopa.exception.CannotFulFillLoanRequest;
+import com.kata.loan.dto.Lender;
+import com.kata.loan.dto.LoanAllocation;
+import com.kata.loan.dto.LoanDetails;
+import com.kata.loan.exception.CannotFulFillLoanRequest;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
